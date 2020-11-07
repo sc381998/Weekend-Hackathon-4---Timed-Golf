@@ -17,9 +17,13 @@
   width: 195px;
   margin: 15px;
   height: 60px;
-
 }
 
+.center {
+  position: relative;
+  left: 100px;
+  top: 100px;
+}
 
 .ball {
   background-color: black;
@@ -31,7 +35,6 @@
   width: 50px;
   border-radius: 25px;
 }
-
 
 .hole {
   background-color: rgb(62, 85, 107);

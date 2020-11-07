@@ -3,22 +3,77 @@ import "../styles/App.css";
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { time: 0, x: 0, y: 0 };
+    this.state = { renderBall: false, time: 0, x: 0, y: 0 };
+    this.timerId = null;
+    this.renderChoice = this.renderChoice.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.handleStart = this.handleStart.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
+  }
+  startTimer() {
+    this.timerId = setInterval(() => {
+      var second = this.state.time;
+      this.setState({ time: second + 1 });
+    }, 1000);
+  }
+  stopTimer() {
+    clearInterval(this.timerId);
+  }
+  handleStart() {
+    this.startTimer();
+    this.setState({
+      renderBall: !this.state.renderBall
+    });
+  }
+  handleKeyDown(event) {
+    let newx = this.state.x;
+    let newy = this.state.y;
+    if (event.keyCode === 39) {
+      newx += 5;
+    } else if (event.keyCode === 37) {
+      newx -= 5;
+    } else if (event.keyCode === 38) {
+      newy -= 5;
+    } else if (event.keyCode === 40) {
+      newy += 5;
+    }
+    this.setState({
+      x: newx,
+      y: newy
+    });
+    if (newx === 250 && newy === 250) this.stopTimer();
   }
   componentDidMount() {
-    
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
-
-
-
+  renderChoice() {
+    if (this.state.renderBall) {
+      return (
+        <div
+          className="ball"
+          style={{ left: `${this.state.x}px`, top: `${this.state.y}px` }}
+        ></div>
+      );
+    } else return <button onClick={this.handleStart}>Start Game</button>;
+  }
   render() {
     return (
- <>
-</>
+      <>
+        <div className="playground">{this.renderChoice()}</div>
+        <div className="heading-timer">
+          <span role="img" aria-label="clock">
+            ⏰
+          </span>
+          {/* <span id="minute">00</span>: */}
+          <span id="second">{this.state.time}</span>
+        </div>
+        <div className="hole" style={{ left: "250px", top: "250px" }}></div>
+      </>
     );
   }
 }
