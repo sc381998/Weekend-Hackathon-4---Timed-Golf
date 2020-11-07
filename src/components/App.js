@@ -63,13 +63,7 @@ class Timer extends React.Component {
           Start Game
         </button>
 
-        <div className="heading-timer">
-          <span role="img" aria-label="clock">
-            ⏰
-          </span>
-          {/* <span id="minute">00</span>: */}
-          <span id="second">{this.state.time}</span>
-        </div>
+        <div className="heading-timer">{this.state.time}</div>
         <div className="hole" style={{ left: "250px", top: "250px" }}></div>
       </>
     );
