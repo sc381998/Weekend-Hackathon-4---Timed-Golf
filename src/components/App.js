@@ -3,8 +3,9 @@ import "../styles/App.css";
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { renderBall: false, time: 0, x: 0, y: 0 };
+    this.state = { time: 0, x: 0, y: 0 };
     this.timerId = null;
+    this.startGame = false;
     this.startTimer = this.startTimer.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -21,11 +22,10 @@ class Timer extends React.Component {
   }
   handleStart() {
     this.startTimer();
-    this.setState({
-      renderBall: !this.state.renderBall
-    });
+    this.startGame = true;
   }
   handleKeyDown(event) {
+    if (!this.startGame) return;
     let newx = this.state.x;
     let newy = this.state.y;
     if (newx === 250 && newy === 250) this.stopTimer();
