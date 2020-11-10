@@ -60,7 +60,7 @@ class Timer extends React.Component {
           className="ball"
           style={{ left: `${this.state.x}px`, top: `${this.state.y}px` }}
         ></div>
-        <button onClick={this.handleStart} className="ballProvider">
+        <button onClick={this.handleStart} className="start">
           Start Game
         </button>
 
